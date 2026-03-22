@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>adidas — Apparels</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+  body{background:#f5f5f5;}
+  .page-header{background:#000;color:#fff;padding:8rem 3rem 4rem;}
+  .page-header-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;}
+  .page-header-title{font-family:var(--font-display);font-size:clamp(56px,9vw,110px);font-weight:900;text-transform:uppercase;line-height:0.9;}
+  .page-header-count{font-size:13px;color:rgba(255,255,255,0.45);margin-top:1rem;}
+  .filter-bar{background:#fff;border-bottom:1px solid #e8e8e8;padding:0 3rem;display:flex;align-items:center;position:sticky;top:72px;z-index:50;overflow-x:auto;}
+  .filter-tab{padding:1rem 1.4rem;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;white-space:nowrap;}
+  .filter-tab:hover{color:#000;}
+  .filter-tab.active{color:#000;border-bottom-color:#000;}
+  .filter-divider{width:1px;height:20px;background:#e8e8e8;margin:0 0.5rem;flex-shrink:0;}
+  .sort-select{margin-left:auto;border:none;outline:none;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#888;background:none;cursor:pointer;padding:1rem 0;font-family:var(--font-body);}
+  .sort-select:hover{color:#000;}
+  .products-wrapper{padding:2.5rem 3rem 5rem;}
+  .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+  .pcard{background:#fff;cursor:pointer;overflow:hidden;position:relative;transition:box-shadow 0.25s;}
+  .pcard:hover{box-shadow:0 12px 48px rgba(0,0,0,0.1);}
+  .pcard-img{background:#f0f0f0;aspect-ratio:4/3;position:relative;overflow:hidden;}
+  .pcard-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform 0.5s ease;overflow:hidden;}
+  .pcard-img-inner img{width:100%;height:100%;object-fit:cover;display:block;}
+  .pcard:hover .pcard-img-inner{transform:scale(1.04);}
+  .pcard-badge{position:absolute;top:14px;left:14px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;z-index:2;}
+  .badge-new{background:#000;color:#fff;}
+  .badge-sale{background:#e00;color:#fff;}
+  .badge-hot{background:#ff6b00;color:#fff;}
+  .pcard-wishlist{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;z-index:2;}
+  .pcard:hover .pcard-wishlist{opacity:1;}
+  .pcard-info{padding:1.2rem 1.4rem 1.6rem;}
+  .pcard-cat{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#888;margin-bottom:4px;}
+  .pcard-name{font-family:var(--font-display);font-size:20px;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.1;}
+  .pcard-colors{font-size:12px;color:#aaa;margin-bottom:10px;}
+  .pcard-bottom{display:flex;align-items:center;justify-content:space-between;}
+  .pcard-price{font-size:15px;font-weight:500;}
+  .pcard-price-old{font-size:13px;color:#aaa;text-decoration:line-through;margin-right:8px;}
+  .pcard-price-new{font-size:15px;font-weight:600;color:#e00;}
+  .pcard-add{background:#000;color:#fff;border:none;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:8px 16px;opacity:0;transition:opacity 0.2s,background 0.2s;}
+  .pcard:hover .pcard-add{opacity:1;}
+  .pcard-add:hover{background:#333;}
+  @media(max-width:900px){.products-grid{grid-template-columns:repeat(2,1fr);}.products-wrapper{padding:2rem 1rem 4rem;}.filter-bar{padding:0 1rem;}.page-header{padding:7rem 1.5rem 3rem;}}
+  @media(max-width:500px){.products-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo"><img src="adidas-logo.png" alt="adidas"/></div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown-wrap">
+      <span class="nav-dropdown-trigger">Products ▾</span>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <a href="products.html">Footwear</a>
+          <a href="apparels.html">Apparels</a>
+          <a href="accessories.html">Accessories</a>
+        </div>
+      </div>
+    </div>
+    <a href="#">New Arrivals</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-search">
+      <input type="text" class="nav-search-input" placeholder="Search..."/>
+      <span class="nav-search-icon">⌕</span>
+    </div>
+    <div class="cart-icon"><span>🛒</span><span>0</span></div>
+    <div class="profile-wrap">
+      <div class="profile-btn">👤</div>
+      <div class="profile-dropdown">
+        <div class="profile-dropdown-inner">
+          <a href="login.html">Sign Up</a>
+          <a href="login.html">Log In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-label">adidas Collection</div>
+  <div class="page-header-title">Apparels</div>
+  <div class="page-header-count" id="product-count">4 Products</div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-tab active" data-filter="all">All</button>
+  <div class="filter-divider"></div>
+  <button class="filter-tab" data-filter="jackets">Jackets</button>
+  <button class="filter-tab" data-filter="tshirts">T-Shirts</button>
+  <button class="filter-tab" data-filter="tracksuit">Tracksuit</button>
+  <select class="sort-select" id="sort-select">
+    <option value="default">Sort: Featured</option>
+    <option value="price-asc">Price: Low to High</option>
+    <option value="price-desc">Price: High to Low</option>
+    <option value="new">Newest First</option>
+  </select>
+</div>
+
+<div class="products-wrapper">
+  <div class="products-grid" id="products-grid">
+
+    <div class="pcard" data-cat="jackets" data-price="4999" data-new="1">
+      <div class="pcard-img"><div class="pcard-img-inner"><img src="appeals/1.jpg" alt="Tiro 26 Jacket"/></div><span class="pcard-badge badge-new">New</span><button class="pcard-wishlist">♡</button></div>
+      <div class="pcard-info"><div class="pcard-cat">Jackets</div><div class="pcard-name">Tiro 26 Jacket</div><div class="pcard-colors">3 Colors</div><div class="pcard-bottom"><div class="pcard-price">₹4,999</div><button class="pcard-add">Add to Cart</button></div></div>
+    </div>
+
+    <div class="pcard" data-cat="tshirts" data-price="1999" data-new="0">
+      <div class="pcard-img"><div class="pcard-img-inner"><img src="appeals/2.jpg" alt="Essentials Tee"/></div><span class="pcard-badge badge-hot">Trending</span><button class="pcard-wishlist">♡</button></div>
+      <div class="pcard-info"><div class="pcard-cat">T-Shirts</div><div class="pcard-name">Essentials Tee</div><div class="pcard-colors">5 Colors</div><div class="pcard-bottom"><div class="pcard-price">₹1,999</div><button class="pcard-add">Add to Cart</button></div></div>
+    </div>
+
+    <div class="pcard" data-cat="tracksuit" data-price="3499" data-new="0">
+      <div class="pcard-img"><div class="pcard-img-inner"><img src="appeals/3.jpg" alt="Entrada 22 Track"/></div><span class="pcard-badge badge-sale">Sale</span><button class="pcard-wishlist">♡</button></div>
+      <div class="pcard-info"><div class="pcard-cat">Tracksuit</div><div class="pcard-name">Entrada 22 Track</div><div class="pcard-colors">2 Colors</div><div class="pcard-bottom"><div><span class="pcard-price-old">₹4,999</span><span class="pcard-price-new">₹3,499</span></div><button class="pcard-add">Add to Cart</button></div></div>
+    </div>
+
+    <div class="pcard" data-cat="jackets" data-price="5999" data-new="1">
+      <div class="pcard-img"><div class="pcard-img-inner"><img src="appeals/4.jpg" alt="Condivo 22 Jacket"/></div><span class="pcard-badge badge-new">New</span><button class="pcard-wishlist">♡</button></div>
+      <div class="pcard-info"><div class="pcard-cat">Jackets</div><div class="pcard-name">Condivo 22 Jacket</div><div class="pcard-colors">4 Colors</div><div class="pcard-bottom"><div class="pcard-price">₹5,999</div><button class="pcard-add">Add to Cart</button></div></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div><div class="footer-logo">adidas</div><div class="footer-copy">© 2026 adidas AG. All rights reserved.</div></div>
+  <div class="footer-links">
+    <a href="products.html">Footwear</a>
+    <a href="apparels.html">Apparels</a>
+    <a href="accessories.html">Accessories</a>
+    <a href="#">Help</a>
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('floating',window.scrollY>60);},{passive:true});
+const tabs=document.querySelectorAll('.filter-tab');
+const cards=document.querySelectorAll('.pcard');
+const countEl=document.getElementById('product-count');
+const sortEl=document.getElementById('sort-select');
+let activeFilter='all';
+function filterAndSort(){
+  let visible=[];
+  cards.forEach(card=>{const show=activeFilter==='all'||card.dataset.cat===activeFilter;card.style.display=show?'block':'none';if(show)visible.push(card);});
+  const grid=document.getElementById('products-grid');
+  [...visible].sort((a,b)=>{const s=sortEl.value;if(s==='price-asc')return a.dataset.price-b.dataset.price;if(s==='price-desc')return b.dataset.price-a.dataset.price;if(s==='new')return b.dataset.new-a.dataset.new;return 0;}).forEach(c=>grid.appendChild(c));
+  countEl.textContent=visible.length+' Products';
+}
+tabs.forEach(tab=>{tab.addEventListener('click',()=>{tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');activeFilter=tab.dataset.filter;filterAndSort();});});
+sortEl.addEventListener('change',filterAndSort);
+document.querySelectorAll('.pcard-wishlist').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();btn.textContent=btn.textContent==='♡'?'♥':'♡';btn.style.color=btn.textContent==='♥'?'#e00':'';});});
+</script>
+</body>
+</html>
