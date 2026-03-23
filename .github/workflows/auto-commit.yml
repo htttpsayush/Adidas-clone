@@ -13,8 +13,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
+          git config user.name "htttpsayush"
+          git config user.email "ac.ayush2007@gmail.com"
 
       - name: Auto Commit
         run: |
